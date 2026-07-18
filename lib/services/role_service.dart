@@ -15,7 +15,7 @@ class RoleServiceException implements Exception {
 
 class RoleService {
   static const String _baseUrl = 'https://api.wraeglobal.com/roleRouter';
-  static const Duration _timeout = Duration(seconds: 30);
+  static const Duration _timeout = Duration(seconds: 60);
 
   final http.Client _client;
 
@@ -28,8 +28,24 @@ class RoleService {
     }
   }
 
-  Future<List<Role>> fetchActiveRoles() => _fetchRoles('$_baseUrl/getActiveRoles');
-  Future<List<Role>> fetchArchivedRoles() => _fetchRoles('$_baseUrl/getArchivedRoles');
+  Future<List<Role>> fetchActiveRoles() => _fetchRolesWithRetry('$_baseUrl/getActiveRoles');
+  Future<List<Role>> fetchArchivedRoles() => _fetchRolesWithRetry('$_baseUrl/getArchivedRoles');
+
+  Future<List<Role>> _fetchRolesWithRetry(String url, {int retries = 2}) async {
+    int attempts = 0;
+    while (attempts < retries) {
+      try {
+        return await _fetchRoles(url);
+      } on TimeoutException {
+        attempts++;
+        if (attempts >= retries) rethrow;
+        await Future.delayed(const Duration(seconds: 2)); // Wait before retry
+      } catch (e) {
+        rethrow;
+      }
+    }
+    throw const RoleServiceException('Maximum retries exceeded');
+  }
 
   Future<List<Role>> _fetchRoles(String url) async {
     await _checkConnectivity();
