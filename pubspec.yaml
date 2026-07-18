@@ -1,0 +1,32 @@
+name: job_listing_app
+description: "A Flutter job listing app for 91 Technologies internship assignment."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.2.0
+  intl: ^0.19.0
+  flutter_html: ^3.0.0-beta.2
+  google_fonts: ^6.2.1
+  shimmer: ^3.0.0
+  share_plus: ^10.1.4
+  url_launcher: ^6.3.1
+  connectivity_plus: ^6.1.1
+  shared_preferences: ^2.3.5
+  provider: ^6.1.2
+  flutter_secure_storage: ^9.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
