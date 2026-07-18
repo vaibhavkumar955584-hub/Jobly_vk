@@ -73,7 +73,7 @@ class ErrorView extends StatelessWidget {
             const Icon(Icons.error_outline, size: 48, color: AppTheme.textSecondary),
             const SizedBox(height: 16),
             Text(
-              'Something went wrong',
+              'Connection failed or Timeout',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
@@ -81,6 +81,12 @@ class ErrorView extends StatelessWidget {
               message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'The server might be slow responding to archived requests. Please try again.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12, color: AppTheme.textSecondary),
             ),
             const SizedBox(height: 24),
             ElevatedButton(
